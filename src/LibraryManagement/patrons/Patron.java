@@ -1,4 +1,4 @@
 package LibraryManagement.patrons;
 
-public class Patron {
+public class Patron extends Library {
 }

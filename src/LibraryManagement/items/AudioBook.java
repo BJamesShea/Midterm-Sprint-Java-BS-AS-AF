@@ -1,4 +1,4 @@
 package LibraryManagement.items;
 
-public class AudioBook {
+public class AudioBook extends Book {
 }

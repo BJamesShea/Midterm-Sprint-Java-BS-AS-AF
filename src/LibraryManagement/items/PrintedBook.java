@@ -1,4 +1,4 @@
 package LibraryManagement.items;
 
-public class PrintedBook {
+public class PrintedBook extends Book{
 }

@@ -1,4 +1,4 @@
 package LibraryManagement.items;
 
-public class Periodical {
+public class Periodical extends LibraryItem {
 }

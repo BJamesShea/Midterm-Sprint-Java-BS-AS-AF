@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter; // import DateTimeFormatter to format
 import java.util.*; // import all classes in java.util package to access ArrayList and List for list of items author has written(writtenItems)
 
 // Public class that represents the Author - includes name, date of birth(dob), and list of items they have written as well as getters and setters and description(toString)
-public class Author {
+public class Author extends Library {
 
     // Private instance variable(s)
     private String name; 
