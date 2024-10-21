@@ -1,4 +1,4 @@
 package LibraryManagement.util;
 
-public class Status {
+public class Status extends LibraryItem {
 }
