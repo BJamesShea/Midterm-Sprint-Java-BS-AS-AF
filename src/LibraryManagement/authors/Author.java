@@ -3,10 +3,11 @@ package LibraryManagement.authors;
 // Imports
 import java.time.LocalDate; // import LocalDate to properly handle date object for "dob"
 import java.time.format.DateTimeFormatter; // import DateTimeFormatter to format author's date of birth(dob)
-import java.util.*; // import all classes in java.util package to access ArrayList and List for list of items author has written(writtenItems)
+import java.util.ArrayList;
+import java.util.List;
 
 // Public class that represents the Author - includes name, date of birth(dob), and list of items they have written as well as getters and setters and description(toString)
-public class Author extends Library {
+public class Author {
 
     // Private instance variable(s)
     private String name; 
@@ -61,7 +62,7 @@ public class Author extends Library {
     // toString method to provide description
     @Override
     public String toString() {
-        return "Author: " + this.name + ", Date of birth: " + this.formatDob() + ", Items written: " + this.writtenItems;
+        return "Author: " + this.name + ", Date of birth: " + this.formatDob() + ", Items written: " + (this.writtenItems.isEmpty() ? "None" : String.join(",", writtenItems));
     }
 
 }
