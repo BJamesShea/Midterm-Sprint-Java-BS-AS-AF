@@ -38,12 +38,20 @@ public class Patron extends Library {
         this.name = name;
     }
 
-    public String getAddress() { // method to get patron's address)
+    public String getAddress() { // method to get patron's address
         return this.address;
     }
 
     public void setAddress(String address) { // method to set the patron's address
         this.address = address;
+    }
+
+    public String getPhoneNum() { // method to get patron's phone number
+        return this.phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) { // method to set the patron's phone number
+        this.phoneNum = phoneNum;
     }
 
     public List<LibraryItem> getBorrowedItemsItems() { // method to get a list of patron's borrowed items
@@ -60,6 +68,6 @@ public class Patron extends Library {
         String itemsBorrowed = borrowedItems.isEmpty() ? "None" :
                 String.join(", ", borrowedItems.stream().map(LibraryItem::getTitle).toList());
 
-        return String.format("Patron: %s, Address: %s, Items written: %s", name, address, itemsBorrowed);
+        return String.format("Patron: %s, Address: %s, Phone Number: %s, Items written: %s", name, address, phoneNum, itemsBorrowed);
     }
 }
