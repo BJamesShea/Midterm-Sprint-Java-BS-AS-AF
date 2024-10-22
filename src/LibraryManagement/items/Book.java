@@ -2,6 +2,7 @@ package LibraryManagement.items;
 
 import LibraryManagement.authors.Author;
 
+// Book class set up as a subclass to LibraryItem
 public class Book extends LibraryItem{
 
     // Private instance variables
