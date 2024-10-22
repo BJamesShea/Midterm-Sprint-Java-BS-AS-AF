@@ -71,7 +71,7 @@ public class LibraryItem {
         this.numberOfCopies = numberOfCopies;
     }
 
-    // toSring method for description
+    // toString method for description
     @Override
     public String toString() {
         return String.format("ID: %s, Title: %s, Author: %s, ISBN: %s, Publisher: %s, Copies Available: %d",
