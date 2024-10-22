@@ -3,7 +3,6 @@ package LibraryManagement.patrons;
 import LibraryManagement.Library;
 import LibraryManagement.items.LibraryItem;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +53,7 @@ public class Patron extends Library {
         this.phoneNum = phoneNum;
     }
 
-    public List<LibraryItem> getBorrowedItemsItems() { // method to get a list of patron's borrowed items
+    public List<LibraryItem> getBorrowedItem() { // method to get a list of patron's borrowed items
         return borrowedItems;
     }
 

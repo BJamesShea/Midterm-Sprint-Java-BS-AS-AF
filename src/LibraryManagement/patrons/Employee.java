@@ -1,6 +1,5 @@
 package LibraryManagement.patrons;
 
-import LibraryManagement.authors.Author;
 
 public class Employee extends Patron{
     // Private instance variables
