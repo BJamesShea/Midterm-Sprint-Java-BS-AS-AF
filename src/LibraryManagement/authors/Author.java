@@ -5,6 +5,7 @@ import java.time.LocalDate; // import LocalDate to properly handle date object f
 import java.time.format.DateTimeFormatter; // import DateTimeFormatter to format author's date of birth(dob)
 import java.util.ArrayList;
 import java.util.List;
+import LibraryManagement.items.LibraryItem;
 
 // Public class that represents the Author - includes name, date of birth(dob), and list of items they have written as well as getters and setters and description(toString)
 public class Author {
@@ -12,7 +13,7 @@ public class Author {
     // Private instance variable(s)
     private String name; 
     private LocalDate dob; // date of birth in yyyy-mm-dd format
-    private List<String> writtenItems; // list of items author has written
+    private List<LibraryItem> writtenItems; // list of items author has written
 
     // Constructor(s)
     public Author(String name) { // parameterized constructor
@@ -42,11 +43,11 @@ public class Author {
         this.dob = dob;                 // yyyy-mm-dd format
     }
 
-    public List<String> getWrittenItems() { // method to get a list of author's written items
+    public List<LibraryItem> getWrittenItems() { // method to get a list of author's written items
         return writtenItems;
     }
 
-    public void addWrittenItem(String item) { // method to an item to the authors written item list
+    public void addWrittenItem(LibraryItem item) { // method to an item to the authors written item list
         writtenItems.add(item);               // uses add method of the List interface to append item 
     }
 
@@ -62,7 +63,10 @@ public class Author {
     // toString method to provide description
     @Override
     public String toString() {
-        return "Author: " + this.name + ", Date of birth: " + this.formatDob() + ", Items written: " + (this.writtenItems.isEmpty() ? "None" : String.join(",", writtenItems));
+        String itemsWritten = writtenItems.isEmpty() ? "None" :
+        String.join(", ", writtenItems.stream().map(LibraryItem::getTitle).toList());
+
+        return String.format("Author: %s, Date of birth: %s, Items written: %s", name, formatDob(), itemsWritten);
     }
 
 }
