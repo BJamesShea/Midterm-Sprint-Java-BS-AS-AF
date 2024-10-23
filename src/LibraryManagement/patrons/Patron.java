@@ -7,18 +7,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Patron extends Library {
+
+    // Enum for PatronType
+    public enum PatronType {
+        EMPLOYEE,
+        STUDENT
+    }
+
     // Private instance variable(s)
     private String name;
     private String address;
     private String phoneNum;
     private List<LibraryItem> borrowedItems; // list of items patron has borrowed
+    private PatronType patronType; // Enum for Employee or Student
 
     // Constructor(s)
-    public Patron(String name, String address, String phoneNum) { // parameterized constructor
+    public Patron(String name, String address, String phoneNum, PatronType patronType) { // parameterized constructor
         this.name = name;
         this.address = address;
         this.phoneNum = phoneNum;
         this.borrowedItems = new ArrayList<>(); // initializes the list
+        this.patronType = patronType;
     }
 
     public Patron() { // default constructor
@@ -59,6 +68,14 @@ public class Patron extends Library {
 
     public void addBorrowedItem(LibraryItem item) { // method to an item to the patrons borrowed item list
         borrowedItems.add(item);               // uses add method of the List interface to append item
+    }
+
+    public String getPatronType() {
+        return this.patronType;
+    }
+
+    public void setPatronType(PatronType patronType) {
+        this.patronType = patronType;
     }
 
     // toString method to provide description

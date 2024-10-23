@@ -9,7 +9,7 @@ public class Student extends Patron {
 
     // Constructor
     public Student(String name, String address, String phoneNum, int id, LocalDate enrollmentDate) {
-        super(name, address, phoneNum);
+        super(name, address, phoneNum, PatronType.STUDENT); // Set the PatronType to STUDENT
         this.id = id;
         this.enrollmentDate = enrollmentDate;
     }

@@ -8,7 +8,7 @@ public class Employee extends Patron{
 
     // Constructor
     public Employee(String name, String address, String phoneNum, int id, String department) {
-        super(name, address, phoneNum);
+        super(name, address, phoneNum, PatronType.EMPLOYEE); // Set the PatronType to EMPLOYEE
         this.id = id;
         this.department = department;
     }
