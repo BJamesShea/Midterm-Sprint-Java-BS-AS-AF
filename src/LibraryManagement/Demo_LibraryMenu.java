@@ -10,6 +10,8 @@ import LibraryManagement.authors.Author;
 import LibraryManagement.items.Book;
 import LibraryManagement.items.LibraryItem;
 import LibraryManagement.items.Periodical;
+import LibraryManagement.patrons.Employee;
+import LibraryManagement.patrons.Student;
 
 // Demo class is Users landing point with Library Menu
 public class Demo_LibraryMenu extends Library {
@@ -24,6 +26,7 @@ public class Demo_LibraryMenu extends Library {
     // Create lists to store data
     private static List<LibraryItem> libraryItems = new ArrayList<>();
     private static List<Author> authors = new ArrayList<>();
+    private static List<Patron> patrons = new ArrayList<>();
     
     public static void main(String[] args) {
 
@@ -103,7 +106,7 @@ public class Demo_LibraryMenu extends Library {
 
                 case 9:
                     System.out.println("Adding a new patron...");
-                    // Add logic to add a patron
+                    addPatron(scanner);
                     break;
 
                 case 10:
@@ -260,6 +263,49 @@ public class Demo_LibraryMenu extends Library {
             // Create new author and return 
             addAuthor(scanner);
             return authors.get(authors.size() - 1); 
+        }
+    }
+
+    // Method to add a patron
+    private static void addPatron(Scanner scanner) {
+        System.out.println("Choose Patron Type (1 for Student, 2 for Employee): ");
+        int patronChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        // Input fields for both patrons
+        System.out.print("Enter Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Address: ");
+        String address = scanner.nextLine();
+        System.out.print("Enter Phone Number: ");
+        String phoneNum = scanner.nextLine();
+
+        // Input fields for chosen patron type
+        if (patronChoice == 1) {
+            // Add student
+            System.out.print("Enter Student ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            System.out.print("Enter Enrollment Date (YYYY-MM-DD): ");
+            String enrollmentDateInput = scanner.nextLine();
+            LocalDate enrollmentDate = LocalDate.parse(enrollmentDateInput);
+            // Create student object
+            Student student = new Student(name, address, phoneNum, id, enrollmentDate);
+            patrons.add(student); // add new student to list of patrons
+            System.out.println("Student added successfully.");
+        } else if (patronChoice == 2) {
+            // Add employee
+            System.out.print("Enter Employee ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            System.out.print("Enter Department: ");
+            String department = scanner.nextLine();
+            // Create employee object
+            Employee employee = new Employee(name, address, phoneNum, id, department);
+            patrons.add(employee); // add new employee to list of patrons
+            System.out.println("Employee added successfully.");
+        } else {
+            System.out.println("Invalid choice. Please select 1 for Student or 2 for Employee.");
         }
     }
 }
