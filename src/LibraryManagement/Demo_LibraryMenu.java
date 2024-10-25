@@ -11,6 +11,7 @@ import LibraryManagement.items.Book;
 import LibraryManagement.items.LibraryItem;
 import LibraryManagement.items.Periodical;
 import LibraryManagement.patrons.Employee;
+import LibraryManagement.patrons.Patron;
 import LibraryManagement.patrons.Student;
 
 // Demo class is Users landing point with Library Menu

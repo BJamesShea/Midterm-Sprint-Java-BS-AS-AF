@@ -70,7 +70,7 @@ public class Patron extends Library {
         borrowedItems.add(item);               // uses add method of the List interface to append item
     }
 
-    public String getPatronType() {
+    public PatronType getPatronType() {
         return this.patronType;
     }
 

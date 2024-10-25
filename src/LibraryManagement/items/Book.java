@@ -22,7 +22,7 @@ public class Book extends LibraryItem{
     }
 
     // Getters and Setters
-    public String getFormat() {
+    public Format getFormat() {
         return format;
     }
 
