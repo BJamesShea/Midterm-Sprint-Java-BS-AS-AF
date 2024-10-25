@@ -51,6 +51,10 @@ public class Author {
         writtenItems.add(item);               // uses add method of the List interface to append item 
     }
 
+    public void removeWrittenItem(LibraryItem item) {
+        writtenItems.remove(item);
+    }
+
     // Method to make the author's date of birth format prettier
     public String formatDob() {
         if (dob == null) {

@@ -78,7 +78,7 @@ public class Demo_LibraryMenu extends Library {
 
                 case 3:
                     System.out.println("Deleting a library item...");
-                    // Add logic to delete a library item
+                    deleteLibraryItem(scanner);
                     break;
 
                 case 4:
@@ -102,7 +102,7 @@ public class Demo_LibraryMenu extends Library {
 
                 case 8:
                     System.out.println("Deleting an author...");
-                    // Add logic to delete an author
+                    deleteAuthor(scanner);
                     break;
 
                 case 9:
@@ -117,7 +117,7 @@ public class Demo_LibraryMenu extends Library {
 
                 case 11:
                     System.out.println("Deleting a patron...");
-                    // Add logic to delete a patron
+                    deletePatron(scanner);
                     break;
 
                 case 12:
@@ -230,20 +230,71 @@ public class Demo_LibraryMenu extends Library {
         System.out.println("Library item added successfully.");
     }
 
+    // Method to delete a library item
+    private static void deleteLibraryItem(Scanner scanner) {
+        if (libraryItems.isEmpty()) {
+            System.out.println("No library items available to delete.");
+            return;
+        }
+
+        System.out.println("Select a library items to delete: ");
+        for (int i = 0; i < libraryItems.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, libraryItems.get(i).getTitle());
+        }
+        System.out.print("Enter the number of the library item to delete: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Clear the buffer
+
+        if (choice > 0 && choice <= libraryItems.size()) {
+            // Remove the author from the list
+            LibraryItem removedLibraryItem = libraryItems.remove(choice - 1);
+            System.out.println("Library Item '" + removedLibraryItem.getTitle() + "' has been deleted successfully.");
+        } else {
+            System.out.println("Invalid choice. Please select a valid library item number.");
+        }
+    }
+
     // Method to add an author
     private static void addAuthor(Scanner scanner) {
+        scanner.nextLine(); // Clear the buffer before reading input
         System.out.print("Enter author's name: ");
-        String name = scanner.nextLine();
+        String name = scanner.nextLine(); // Read author's name
+
+        // To avoid issues with lingering newlines
         System.out.print("Enter author's date of birth (YYYY-MM-DD): ");
-        String dobInput = scanner.nextLine();
-        LocalDate dob = LocalDate.parse(dobInput);
+        String dobInput = scanner.nextLine(); // Read date of birth
+        LocalDate dob = LocalDate.parse(dobInput); // Parse date of birth
 
         // Create the author
         Author author = new Author(name);
         author.setDob(dob);
-        authors.add(author);
+        authors.add(author); // Add the author to the list
 
         System.out.println("Author added successfully.");
+    }
+
+    // Method to delete an author
+    private static void deleteAuthor(Scanner scanner) {
+        if (authors.isEmpty()) {
+            System.out.println("No authors available to delete.");
+            return;
+        }
+
+        System.out.println("Select an author to delete: ");
+        for (int i = 0; i < authors.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, authors.get(i).getName());
+        }
+        System.out.print("Enter the number of the author to delete: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Clear the buffer
+
+        if (choice > 0 && choice <= authors.size()) {
+            // Remove the author from the list
+            Author removedAuthor = authors.remove(choice - 1);
+            System.out.println("Author '" + removedAuthor.getName() + "' has been deleted successfully.");
+        } else {
+            System.out.println("Invalid choice. Please select a valid author number.");
+        }
     }
 
     // Method to either select an existing author or create a new one
@@ -307,6 +358,30 @@ public class Demo_LibraryMenu extends Library {
             System.out.println("Employee added successfully.");
         } else {
             System.out.println("Invalid choice. Please select 1 for Student or 2 for Employee.");
+        }
+    }
+
+    // Method to delete a patron
+    private static void deletePatron(Scanner scanner) {
+        if (patrons.isEmpty()) {
+            System.out.println("No patrons available to delete.");
+            return;
+        }
+
+        System.out.println("Select an patron to delete: ");
+        for (int i = 0; i < patrons.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, patrons.get(i).getName());
+        }
+        System.out.print("Enter the number of the patron to delete: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Clear the buffer
+
+        if (choice > 0 && choice <= patrons.size()) {
+            // Remove the author from the list
+            Patron removedPatron = patrons.remove(choice - 1);
+            System.out.println("Patron '" + removedPatron.getName() + "' has been deleted successfully.");
+        } else {
+            System.out.println("Invalid choice. Please select a valid author number.");
         }
     }
 }
