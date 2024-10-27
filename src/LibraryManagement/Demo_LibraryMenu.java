@@ -303,11 +303,9 @@ public class Demo_LibraryMenu extends Library {
         for (int i = 0; i < authors.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, authors.get(i).getName());
         }
-        System.out.println((authors.size() + 1) + ". Create a new author.");
+        System.out.println((authors.size() + 1) + ". Press 1 to create a new Author.");
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
-        scanner.nextLine();
-
         if (choice > 0 && choice <= authors.size()) {
             // Select existing author
             return authors.get(choice - 1);
