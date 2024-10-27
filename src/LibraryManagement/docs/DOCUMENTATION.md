@@ -1,4 +1,4 @@
-# Java Semester 3 Midterm - BS/AS/AF
+# Java Semester 3 Midterm - BS/AS/AFS
 
 ## Table of Contents
 1. [Introduction](#introduction)
@@ -28,7 +28,7 @@ Designed for both library staff and customers!
 
 We had a lot of fun developing this, the instructions were clear and concise!
 
-**Designed for Cohort 11's Semester 3 Java Midterm, by Brandon Shea, Adam Stevenson and Angie Flynn.**
+**Designed for Cohort 11's Semester 3 Java Midterm, by Brandon Shea, Adam Stevenson and Angie Flynn-Smith.**
 
 
 ---
