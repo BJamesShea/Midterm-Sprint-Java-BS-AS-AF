@@ -19,6 +19,15 @@
 ---
 
 ## Introduction
+This Library Management System was developed to simplify the process of managing library resources, including books,
+periodicals, authors and patrons.
+
+Provides an efficient way to catalog items, manage borrowing and returns, and keep track of patrons. 
+
+Designed for both library staff and customers!
+
+We had a lot of fun developing this, the instructions were clear and concise!
+
 
 
 ---
@@ -26,7 +35,9 @@
 ## User Documentation
 
 ### Overview
-
+This software offers key features like item management (adding, editing and deleting books and periodicals),
+patron management (adding and tracking library users), and a borrowing and returning system that ensures availability
+of resources.
 
 ### Features
 
