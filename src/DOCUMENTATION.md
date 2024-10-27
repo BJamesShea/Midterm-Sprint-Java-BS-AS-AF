@@ -38,7 +38,7 @@ We had a lot of fun developing this, the instructions were clear and concise!
 ### Overview
 This software offers key features like item management (adding, editing and deleting books and periodicals),
 patron management (adding and tracking library users), and a borrowing and returning system that ensures availability
-of resources.
+of resources. Users can search for items by title, author or ISBN, and library staff can manage these resources with ease.
 
 ### Features
 
