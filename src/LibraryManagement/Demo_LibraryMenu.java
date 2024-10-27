@@ -73,7 +73,7 @@ public class Demo_LibraryMenu extends Library {
 
                 case 2:
                     System.out.println("Editing an existing library item...");
-                    // Add logic to edit a library item
+                    editLibraryItem(scanner);
                     break;
 
                 case 3:
@@ -97,7 +97,7 @@ public class Demo_LibraryMenu extends Library {
 
                 case 7:
                     System.out.println("Editing an existing author...");
-                    // Add logic to edit an author
+                    editAuthor(scanner);
                     break;
 
                 case 8:
@@ -112,7 +112,7 @@ public class Demo_LibraryMenu extends Library {
 
                 case 10:
                     System.out.println("Editing an existing patron...");
-                    // Add logic to edit a patron
+                    editPatron(scanner);
                     break;
 
                 case 11:
@@ -230,6 +230,100 @@ public class Demo_LibraryMenu extends Library {
         System.out.println("Library item added successfully.");
     }
 
+    // Method to edit an existing library item
+    private static void editLibraryItem(Scanner scanner) {
+        if (libraryItems.isEmpty()) {
+            System.out.println("No library items available to edit.");
+            return;
+        }
+
+        System.out.println("Select a library item to edit: ");
+        for (int i = 0; i < libraryItems.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, libraryItems.get(i).getTitle());
+        }
+        System.out.print("Enter the number of the library item to edit: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice > 0 && choice <= libraryItems.size()) {
+            LibraryItem itemToEdit = libraryItems.get(choice - 1);
+
+            System.out.print("Enter new title (or press Enter to keep current title: " + itemToEdit.getTitle() + "): ");
+            String newTitle = scanner.nextLine();
+            if (!newTitle.trim().isEmpty()) {
+                itemToEdit.setTitle(newTitle);
+            }
+
+            System.out.print("Enter new ISBN (or press Enter to keep current ISBN: " + itemToEdit.getIsbn() + "): ");
+            String newIsbn = scanner.nextLine();
+            if (!newIsbn.trim().isEmpty()) {
+                itemToEdit.setIsbn(newIsbn);
+            }
+
+            System.out.print("Enter new publisher (or press Enter to keep current publisher: " + itemToEdit.getPublisher() + "): ");
+            String newPublisher = scanner.nextLine();
+            if (!newPublisher.trim().isEmpty()) {
+                itemToEdit.setPublisher(newPublisher);
+            }
+
+            System.out.print("Enter new number of copies (or press Enter to keep current number: " + itemToEdit.getNumberOfCopies() + "): ");
+            String newCopiesInput = scanner.nextLine();
+            if (!newCopiesInput.trim().isEmpty()) {
+                int newCopies = Integer.parseInt(newCopiesInput);
+                itemToEdit.setNumberOfCopies(newCopies);
+            }
+
+            // If the item is a Book, handle format updates
+            if (itemToEdit instanceof Book) {
+                Book bookToEdit = (Book) itemToEdit;
+                System.out.print("Enter new format (1 for Printed, 2 for Electronic, 3 for Audio) (or press Enter to keep current format): ");
+                String formatInput = scanner.nextLine();
+                if (!formatInput.trim().isEmpty()) {
+                    Book.Format format;
+                    switch (formatInput) {
+                        case "1":
+                            format = Book.Format.PRINTED;
+                            break;
+                        case "2":
+                            format = Book.Format.ELECTRONIC;
+                            break;
+                        case "3":
+                            format = Book.Format.AUDIO;
+                            break;
+                        default:
+                            System.out.println("Invalid format choice. Keeping current format.");
+                            format = bookToEdit.getFormat();
+                    }
+                    bookToEdit.setFormat(format);
+                }
+            } else if (itemToEdit instanceof Periodical) {
+                Periodical periodicalToEdit = (Periodical) itemToEdit;
+                System.out.print("Enter new type (1 for Printed, 2 for Electronic) (or press Enter to keep current type): ");
+                String typeInput = scanner.nextLine();
+                if (!typeInput.trim().isEmpty()) {
+                    Periodical.Type type;
+                    switch (typeInput) {
+                        case "1":
+                            type = Periodical.Type.PRINTED;
+                            break;
+                        case "2":
+                            type = Periodical.Type.ELECTRONIC;
+                            break;
+                        default:
+                            System.out.println("Invalid type choice. Keeping current type.");
+                            type = periodicalToEdit.getType();
+                    }
+                    periodicalToEdit.setType(type);
+                }
+            }
+
+            System.out.println("Library item details updated successfully.");
+        } else {
+            System.out.println("Invalid choice. Please select a valid library item number.");
+        }
+    }
+
+
     // Method to delete a library item
     private static void deleteLibraryItem(Scanner scanner) {
         if (libraryItems.isEmpty()) {
@@ -243,7 +337,7 @@ public class Demo_LibraryMenu extends Library {
         }
         System.out.print("Enter the number of the library item to delete: ");
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Clear the buffer
+        scanner.nextLine();
 
         if (choice > 0 && choice <= libraryItems.size()) {
             // Remove the author from the list
@@ -273,6 +367,44 @@ public class Demo_LibraryMenu extends Library {
         System.out.println("Author added successfully.");
     }
 
+    // Method to edit an existing author
+    private static void editAuthor(Scanner scanner) {
+        if (authors.isEmpty()) {
+            System.out.println("No authors available to edit.");
+            return;
+        }
+
+        System.out.println("Select an author to edit: ");
+        for (int i = 0; i < authors.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, authors.get(i).getName());
+        }
+        System.out.print("Enter the number of the author to edit: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice > 0 && choice <= authors.size()) {
+            Author authorToEdit = authors.get(choice - 1);
+
+            System.out.print("Enter new name (or press Enter to keep current name: " + authorToEdit.getName() + "): ");
+            String newName = scanner.nextLine();
+            if (!newName.trim().isEmpty()) {
+                authorToEdit.setName(newName);
+            }
+
+            System.out.print("Enter new date of birth (YYYY-MM-DD) (or press Enter to keep current date of birth): ");
+            String dobInput = scanner.nextLine();
+            if (!dobInput.trim().isEmpty()) {
+                LocalDate dob = LocalDate.parse(dobInput);
+                authorToEdit.setDob(dob);
+            }
+
+            System.out.println("Author details updated successfully.");
+        } else {
+            System.out.println("Invalid choice. Please select a valid author number.");
+        }
+    }
+
+
     // Method to delete an author
     private static void deleteAuthor(Scanner scanner) {
         if (authors.isEmpty()) {
@@ -286,7 +418,7 @@ public class Demo_LibraryMenu extends Library {
         }
         System.out.print("Enter the number of the author to delete: ");
         int choice = scanner.nextInt();
-        scanner.nextLine(); // Clear the buffer
+        scanner.nextLine();
 
         if (choice > 0 && choice <= authors.size()) {
             // Remove the author from the list
@@ -382,4 +514,73 @@ public class Demo_LibraryMenu extends Library {
             System.out.println("Invalid choice. Please select a valid author number.");
         }
     }
+
+    // Method to edit an existing patron
+    private static void editPatron(Scanner scanner) {
+        if (patrons.isEmpty()) {
+            System.out.println("No patrons available to edit.");
+            return;
+        }
+
+        System.out.println("Select a patron to edit: ");
+        for (int i = 0; i < patrons.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, patrons.get(i).getName());
+        }
+        System.out.print("Enter the number of the patron to edit: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Clear the buffer
+
+        if (choice > 0 && choice <= patrons.size()) {
+            Patron patronToEdit = patrons.get(choice - 1);
+
+            System.out.print("Enter new name (or press Enter to keep current name: " + patronToEdit.getName() + "): ");
+            String newName = scanner.nextLine();
+            if (!newName.trim().isEmpty()) {
+                patronToEdit.setName(newName); // Assuming you have a setName method in Patron class
+            }
+
+            System.out.print("Enter new address (or press Enter to keep current address: " + patronToEdit.getAddress() + "): ");
+            String newAddress = scanner.nextLine();
+            if (!newAddress.trim().isEmpty()) {
+                patronToEdit.setAddress(newAddress); // Assuming you have a setAddress method in Patron class
+            }
+
+            System.out.print("Enter new phone number (or press Enter to keep current number: " + patronToEdit.getPhoneNum() + "): ");
+            String newPhoneNum = scanner.nextLine();
+            if (!newPhoneNum.trim().isEmpty()) {
+                patronToEdit.setPhoneNum(newPhoneNum); // Assuming you have a setPhoneNumber method in Patron class
+            }
+
+            // Additional patron-specific fields
+            if (patronToEdit instanceof Student) {
+                System.out.print("Enter new Student ID (or press Enter to keep current ID: " + ((Student) patronToEdit).getId() + "): ");
+                String newStudentId = scanner.nextLine();
+                if (!newStudentId.trim().isEmpty()) {
+                    ((Student) patronToEdit).setId(Integer.parseInt(newStudentId)); // Assuming you have a setId method in Student class
+                }
+                System.out.print("Enter new Enrollment Date (YYYY-MM-DD) (or press Enter to keep current date): ");
+                String newEnrollmentDateInput = scanner.nextLine();
+                if (!newEnrollmentDateInput.trim().isEmpty()) {
+                    LocalDate newEnrollmentDate = LocalDate.parse(newEnrollmentDateInput);
+                    ((Student) patronToEdit).setEnrollmentDate(newEnrollmentDate); // Assuming you have a setEnrollmentDate method in Student class
+                }
+            } else if (patronToEdit instanceof Employee) {
+                System.out.print("Enter new Employee ID (or press Enter to keep current ID: " + ((Employee) patronToEdit).getId() + "): ");
+                String newEmployeeId = scanner.nextLine();
+                if (!newEmployeeId.trim().isEmpty()) {
+                    ((Employee) patronToEdit).setId(Integer.parseInt(newEmployeeId)); // Assuming you have a setId method in Employee class
+                }
+                System.out.print("Enter new Department (or press Enter to keep current department: " + ((Employee) patronToEdit).getDepartment() + "): ");
+                String newDepartment = scanner.nextLine();
+                if (!newDepartment.trim().isEmpty()) {
+                    ((Employee) patronToEdit).setDepartment(newDepartment); // Assuming you have a setDepartment method in Employee class
+                }
+            }
+
+            System.out.println("Patron details updated successfully.");
+        } else {
+            System.out.println("Invalid choice. Please select a valid patron number.");
+        }
+    }
+
 }
