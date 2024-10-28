@@ -1,11 +1,5 @@
 package LibraryManagement;
 
-import java.util.Scanner;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.ArrayList;
-
 import LibraryManagement.authors.Author;
 import LibraryManagement.items.Book;
 import LibraryManagement.items.LibraryItem;
@@ -13,6 +7,11 @@ import LibraryManagement.items.Periodical;
 import LibraryManagement.patrons.Employee;
 import LibraryManagement.patrons.Patron;
 import LibraryManagement.patrons.Student;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 // Demo class is Users landing point with Library Menu
 public class Demo_LibraryMenu extends Library {
@@ -68,6 +67,7 @@ public class Demo_LibraryMenu extends Library {
              switch (choice) {
 
                 case 1:
+                    System.out.println("Adding a new library item...");
                     addLibraryItem(scanner);
                     break;
 
@@ -138,7 +138,6 @@ public class Demo_LibraryMenu extends Library {
 
     // Method to add a library item
     private static void addLibraryItem(Scanner scanner) {
-        System.out.println("Adding a new library item...");
         System.out.println("Enter the type of library item (1 for Book, 2 for Periodical): ");
         int itemTypeChoice = scanner.nextInt();
         scanner.nextLine(); // Clear the buffer
