@@ -83,7 +83,7 @@ public class Demo_LibraryMenu extends Library {
 
                 case 4:
                     System.out.println("Borrowing a library item...");
-                    // Add logic to borrow a library item
+                    borrowLibraryItem(scanner);
                     break;
                     
                 case 5:
@@ -579,6 +579,49 @@ public class Demo_LibraryMenu extends Library {
             System.out.println("Patron details updated successfully.");
         } else {
             System.out.println("Invalid choice. Please select a valid patron number.");
+        }
+    }
+
+    // Method to borrow a library item
+    private static void borrowLibraryItem(Scanner scanner) {
+        // First check if the library had items and patrons
+        if (libraryItems.isEmpty() || patrons.isEmpty()) {
+            System.out.println("No library items available or patrons available to borrow items");
+            return;
+        }
+
+        // If items and patrons available select an item to borrow
+        LibraryItem itemToBorrow = selectLibraryItem(scanner, "borrow");
+        if (itemToBorrow == null) return;
+
+        // Select the patron borrowing the item
+        Patron patron = selectPatron(scanner, "borrow");
+        if (patron == null) return;
+
+        // Check availability and process borrowing
+        if (itemToBorrow.getNumberOfCopies() > 0 ) {
+            itemToBorrow.setNumberOfCopies(itemToBorrow.getNumberOfCopies() - 1);
+            patron.addBorrowedItem(itemToBorrow);
+            System.out.println("Item borrowed successfully by " + patron.getName());
+        } else {
+            System.out.println("All copies of this item are currently checked out.");
+        }
+    }
+
+    // Helper method to select a library item
+    private static LibraryItem selectLibraryItem(Scanner scanner, String action) {
+        System.out.println("Select a library item to " + action + ":");
+        for (int i = 0; i < libraryItems.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, libraryItems.get(i).getTitle());
+        } 
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice > 0 && choice <= patrons.size()) {
+            return patrons.get(choice - 1);
+        } else {
+            System.out.println("Invalid choice. Please select a valid patron number.");
+            return null;
         }
     }
 
