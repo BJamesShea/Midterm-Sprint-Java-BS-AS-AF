@@ -617,10 +617,10 @@ public class Demo_LibraryMenu extends Library {
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        if (choice > 0 && choice <= patrons.size()) {
-            return patrons.get(choice - 1);
+        if (choice > 0 && choice <= libraryItems.size()) {
+            return libraryItems.get(choice - 1);
         } else {
-            System.out.println("Invalid choice. Please select a valid patron number.");
+            System.out.println("Invalid choice. Please select a valid item number.");
             return null;
         }
     }
