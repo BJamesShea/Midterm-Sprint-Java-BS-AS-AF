@@ -10,6 +10,7 @@ import LibraryManagement.patrons.Student;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,7 +38,7 @@ public class Demo_LibraryMenu extends Library {
         loadData();
 
         // Initialize choice object
-        int choice;
+        int choice = -1;
 
         // Call function to get a formatted current date
         String currentDate = getCurrentFormattedDate();
@@ -65,9 +66,12 @@ public class Demo_LibraryMenu extends Library {
             System.out.println("12. Exit");
             System.out.println();
             System.out.println("Enter your choice (1-12): ");
-            choice = scanner.nextInt();
 
-             switch (choice) {
+            try {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+
+            switch (choice) {
 
                 case 1:
                     System.out.println("Adding a new library item...");
@@ -88,7 +92,7 @@ public class Demo_LibraryMenu extends Library {
                     System.out.println("Borrowing a library item...");
                     borrowLibraryItem(scanner);
                     break;
-                    
+
                 case 5:
                     System.out.println("Returning a library item...");
                     returnLibraryItem(scanner);
@@ -130,13 +134,19 @@ public class Demo_LibraryMenu extends Library {
                 default:
                     System.out.println("Invalid choice. Please choose a valid option (1-12).");
                     break;
+
+            }
+
+        }catch(InputMismatchException e) {
+                System.out.println("Invalid choice. Please choose a valid option (1-12).");
+                scanner.nextLine();
             }
 
         } while (choice != 12);
 
         // Close the scanner
-        scanner.close();    
-        
+        scanner.close();
+
     }
 
     // Method to add a library item
