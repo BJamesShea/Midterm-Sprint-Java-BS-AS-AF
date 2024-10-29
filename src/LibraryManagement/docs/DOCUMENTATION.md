@@ -11,10 +11,7 @@
     - [Project Structure](#project-structure)
     - [Class Descriptions](#class-descriptions)
     - [Key Methods](#key-methods)
-4. [Deployment Documentation](#deployment-documentation)
-    - [Installation](#installation)
-    - [Running the Project](#running-the-project)
-5. [Contributions](#contributions)
+4. [Contributions](#contributions)
 
 ---
 
@@ -91,18 +88,33 @@ The project is organized into the following main directories:
 
 ### Class Descriptions
 
+**Library:** The core class that holds lists of library items, authors and patrons. Includes methods for adding, searching,
+borrowing and returning.
+
+**LibraryItem:** Parent class for library items, containing shared properties like title, author, and ISBN.
+
+**Book:** Subclass of LibraryItem representing books. Includes additional properties like format. (Printed, Electronic, Audio)
+
+**Periodical:** Subclass of LibraryItem representing periodicals. Includes property of type. (Printed or Electronic)
+
+**Author:** Stores author details, including name, date of birth, and a list of items written by the author.
+
+**Patron:** Base class for library patrons, with subclasses for Student and Employee. 
+
 
 ### Key Methods
 
+**borrowItem:** Allows a patron to borrow a library item if there are available copies.
 
----
+**returnItem:** Lets a patron return a borrowed item, updating the number of copies in stock.
 
-## Deployment Documentation
+**searchByTitle, searchByAuthor, searchByISBN:** Search methods for location items by title, author or ISBN.
 
-### Installation
+**addLibraryItem, addPatron, addAuthor:** Methods for adding new items, patrons, and authors to the system.
 
 
-### Running the Project
+
+
 
 ---
 
