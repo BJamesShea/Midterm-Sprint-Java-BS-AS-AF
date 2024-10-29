@@ -42,12 +42,36 @@ of resources. Users can search for items by title, author or ISBN, and library s
 
 ### Features
 
+**Item Management:** Allows librarians to add, edit and delete items in the library, including both books and periodicals.
+
+**Patron Management:** Enables the addition and tracking of library patrons, who can be either students or employees.
+
+**Borrowing and Returning System:** A feature for patrons to borrow and return items. The System keeps track of item 
+availability and notifies users if an item is currently checked out. 
+
+**Search Functionality:** Users can search for library items by title, author, or ISN, making it easy to locate resources.
+
+
+
 
 ### Classes and Their Roles
 
+**Library:** The central class that manages all library resources, including items, authors and patrons. It provides
+methods for searching, borrowing and returning items.
+
+**LibraryItem:** Represents items in the library and holds shared properties like ID, title, author, ISBN and number of copies.
+
+**Book and Periodical:** Subclasses of LibraryItem that represent different types of resources.
+
+**Patron:** Represents a library user and includes subclasses for Student and Employee patrons, each with relevant information.
 
 ### How to Use
 
+Start the program by launching the application from the main entry point (Demo_LibraryMenu)
+
+Navigate the menu by using the numbers when prompted.
+
+Exit the program from the main menu when done.
 
 ---
 
