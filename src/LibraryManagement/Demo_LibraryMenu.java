@@ -448,16 +448,19 @@ public class Demo_LibraryMenu extends Library {
         for (int i = 0; i < authors.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, authors.get(i).getName());
         }
-        System.out.println((authors.size() + 1) + ". Press 1 to create a new Author.");
+        System.out.println((authors.size() + 1) + ". Press 0 to create a new Author.");
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         if (choice > 0 && choice <= authors.size()) {
             // Select existing author
             return authors.get(choice - 1);
-        } else {
+        } else if (choice == 0) {
             // Create new author and return 
             addAuthor(scanner);
             return authors.get(authors.size() - 1); 
+        } else {
+            System.out.println("Invalid choice. Please try again.");
+            return selectOrCreateAuthor(scanner);
         }
     }
 
