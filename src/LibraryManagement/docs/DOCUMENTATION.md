@@ -79,6 +79,15 @@ Exit the program from the main menu when done.
 
 ### Project Structure
 
+The project is organized into the following main directories:
+
+**src/LibraryManagement/items:** Contains classes for library items, including LibraryItem, Book and Periodical.
+
+**src/LibraryManagement/authors:** Includes the Author class that represents authors of library items.
+
+**src/LibraryManagement/patrons:** Contains the Patron class and it's subclasses, Student and Employee.
+
+
 
 ### Class Descriptions
 
