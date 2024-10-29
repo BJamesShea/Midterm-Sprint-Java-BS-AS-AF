@@ -7,6 +7,7 @@ import LibraryManagement.items.Periodical;
 import LibraryManagement.patrons.Employee;
 import LibraryManagement.patrons.Patron;
 import LibraryManagement.patrons.Student;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class Demo_LibraryMenu extends Library {
         // Load initial data
         loadData();
 
-        // Initialize choice object
+        // Initialize choice 
         int choice = -1;
 
         // Call function to get a formatted current date
@@ -65,12 +66,29 @@ public class Demo_LibraryMenu extends Library {
             System.out.println("11. Delete Patron");
             System.out.println("12. Exit");
             System.out.println();
-            System.out.println("Enter your choice (1-12): ");
 
-            try {
-                choice = scanner.nextInt();
-                scanner.nextLine();
+            // Validate input
+            boolean validChoice = false;
 
+            while (!validChoice) {
+                System.out.print("Enter your choice (1-12): ");
+                try {
+                    choice = scanner.nextInt();
+                    scanner.nextInt();
+
+                    if (choice >= 1 && choice <= 12) {
+                        validChoice = true;
+                    } else {
+                        System.out.println("Invalid choice. Please enter a number between 1 and 12.");
+                        scanner.nextLine();
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input. Please enter a number between 1 and 12.");
+                    scanner.nextLine();
+                }
+            }
+
+            // Process the validated choice
             switch (choice) {
 
                 case 1:
@@ -135,11 +153,6 @@ public class Demo_LibraryMenu extends Library {
                     System.out.println("Invalid choice. Please choose a valid option (1-12).");
                     break;
 
-            }
-
-        }catch(InputMismatchException e) {
-                System.out.println("Invalid choice.");
-                scanner.nextLine();
             }
 
         } while (choice != 12);
@@ -448,13 +461,13 @@ public class Demo_LibraryMenu extends Library {
         for (int i = 0; i < authors.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, authors.get(i).getName());
         }
-        System.out.println((authors.size() + 1) + ". Press 0 to create a new Author.");
+        System.out.println((authors.size() + 1) + ". Create a new Author.");
         System.out.print("Enter your choice: ");
         int choice = scanner.nextInt();
         if (choice > 0 && choice <= authors.size()) {
             // Select existing author
             return authors.get(choice - 1);
-        } else if (choice == 0) {
+        } else if (choice == authors.size() + 1) {
             // Create new author and return 
             addAuthor(scanner);
             return authors.get(authors.size() - 1); 
