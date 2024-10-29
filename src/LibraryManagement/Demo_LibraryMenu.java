@@ -625,4 +625,21 @@ public class Demo_LibraryMenu extends Library {
         }
     }
 
+    // Helper method to select a patron
+    private static Patron selectPatron(Scanner scanner, String action) {
+        System.out.println("Select a patron to " + action + ":");
+        for (int i = 0; i < patrons.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, patrons.get(i).getName());
+        }
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice > 0 && choice <= patrons.size()) {
+            return patrons.get(choice - 1);
+        } else {
+            System.out.println("Invalid choice. Please select a valid patron number.");
+            return null;
+        }
+    }
+
 }
