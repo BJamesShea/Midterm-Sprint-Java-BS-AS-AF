@@ -138,7 +138,7 @@ public class Demo_LibraryMenu extends Library {
             }
 
         }catch(InputMismatchException e) {
-                System.out.println("Invalid choice. Number of copies must be a valid integer.");
+                System.out.println("Invalid choice.");
                 scanner.nextLine();
             }
 
