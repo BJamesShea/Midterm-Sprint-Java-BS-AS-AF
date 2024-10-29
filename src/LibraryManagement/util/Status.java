@@ -1,11 +1,10 @@
 package LibraryManagement.util;
 
-import LibraryManagement.authors.Author;
 import LibraryManagement.items.LibraryItem;
 import LibraryManagement.patrons.Patron;
 import java.time.LocalDate;
 
-public class Status extends LibraryItem {
+public class Status {
 
     public enum AvailabilityStatus {
         AVAILABLE,
@@ -23,8 +22,7 @@ public class Status extends LibraryItem {
 
     // Constructor
 
-    public Status(String id, String title, Author author, String isbn, String publisher, int numberOfCopies, ItemType itemType) {
-        super(id, title, author, isbn, publisher, numberOfCopies, itemType);
+    public Status() {
         this.status = AvailabilityStatus.AVAILABLE;
         this.dueDate = null;
         this.currentHolder = null;
@@ -71,27 +69,26 @@ public class Status extends LibraryItem {
 
     // Methods
 
-    // Method to borrow an item, setting status and due date
-    public void borrowItem(Patron patron) {
-        if (status == AvailabilityStatus.AVAILABLE) {
-            setStatus(AvailabilityStatus.CHECKED_OUT);
-            setDueDate(LocalDate.now().plusDays(6)); // Sets the due date to the borrowed date plus 6 days
+    // Method to borrow an item
+    public void borrowItem(Patron patron, LibraryItem item) {
+        if (status == AvailabilityStatus.AVAILABLE && item.getNumberOfCopies() > 0) {
+            this.status = AvailabilityStatus.CHECKED_OUT;
+            this.dueDate = LocalDate.now().plusDays(6);
             this.currentHolder = patron;
-            setNumberOfCopies(getNumberOfCopies() - 1);
+            item.setNumberOfCopies(item.getNumberOfCopies() - 1);
             System.out.println("Item borrowed successfully.");
         } else {
             System.out.println("Item is not available for borrowing.");
         }
     }
 
-    // Method to return an item, updating status and clearing due date
-    @Override
-    public void returnItem() {
+    // Method to return an item
+    public void returnItem(LibraryItem item) {
         if (status == AvailabilityStatus.CHECKED_OUT || status == AvailabilityStatus.OVERDUE) {
-            setStatus(AvailabilityStatus.AVAILABLE);
+            this.status = AvailabilityStatus.AVAILABLE;
             this.dueDate = null;
             this.currentHolder = null;
-            setNumberOfCopies(getNumberOfCopies() + 1);
+            item.setNumberOfCopies(item.getNumberOfCopies() + 1);
             System.out.println("Item returned successfully.");
         } else {
             System.out.println("Item was not checked out.");
@@ -102,16 +99,16 @@ public class Status extends LibraryItem {
     // Set to private to restrict direct modification
     private void updateStatus() {
         if (status == AvailabilityStatus.CHECKED_OUT && dueDate != null && LocalDate.now().isAfter(dueDate)) {
-            setStatus(AvailabilityStatus.OVERDUE);
+            this.status = AvailabilityStatus.OVERDUE;
         } else if (status == AvailabilityStatus.OVERDUE && dueDate != null && LocalDate.now().isBefore(dueDate)) {
-            setStatus(AvailabilityStatus.CHECKED_OUT);
+            this.status = AvailabilityStatus.CHECKED_OUT;
         }
     }
 
     // toString method for description
     @Override
     public String toString() {
-        return super.toString() + String.format(", Status: %s, Due Date: %s, Current Holder: %s",
+        return String.format("Status: %s, Due Date: %s, Current Holder: %s",
         status, dueDate != null ? dueDate : "None",
         currentHolder != null ? currentHolder.getName() : "None");
     }

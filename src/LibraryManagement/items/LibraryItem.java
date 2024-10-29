@@ -1,7 +1,8 @@
 package LibraryManagement.items;
 
 import LibraryManagement.authors.Author; // Import the Author class
-
+import LibraryManagement.util.Status; // Import the Status class
+import LibraryManagement.patrons.Patron; // Import the Patron class
 public class LibraryItem {
 
     // Create enum to define item type
@@ -18,6 +19,7 @@ public class LibraryItem {
     private String publisher;
     private int numberOfCopies;
     private ItemType itemType; // BOOK or PERIODICAL
+    private Status status;
 
     // Constructors
     public LibraryItem(String id, String title, Author author, String isbn, String publisher, int numberOfCopies, ItemType itemType) {
@@ -28,6 +30,7 @@ public class LibraryItem {
         this.publisher = publisher;
         this.numberOfCopies = numberOfCopies;
         this.itemType = itemType;
+        this.status = new Status(); // Initialized as AVAILABLE
     }
 
     // Getters and Setters
@@ -87,25 +90,24 @@ public class LibraryItem {
         this.itemType = itemType;
     }
 
-    // Method to borrow an item
-    public boolean borrowItem() {
-        if (numberOfCopies > 0) {
-            numberOfCopies --;
-            return true; // Item successfully borrowed
-        } 
-        return false; // Item is not available
+    public Status getStatus() {
+        return status;
     }
 
-    // Method to return an item
+    // Methods to delegate borrowing and returning to Status class
+    public void borrowItem(Patron patron) {
+        status.borrowItem(patron, this); // Pass "this" allowing updated to item
+    }
+
     public void returnItem() {
-        numberOfCopies++;
+        status.returnItem(this);
     }
 
     // toString method for description
     @Override
     public String toString() {
-        return String.format("ID: %s, Title: %s, Author: %s, ISBN: %s, Publisher: %s, Copies Available: %d, Item Type: %s",
-        id, title, author != null ? author.getName() : "Unknown", isbn, publisher, numberOfCopies, itemType);
+        return String.format("ID: %s, Title: %s, Author: %s, ISBN: %s, Publisher: %s, Copies Available: %d, Item Type: %s, Status: %s",
+        id, title, author != null ? author.getName() : "Unknown", isbn, publisher, numberOfCopies, itemType, status.getStatus());
     }
 
 }

@@ -88,7 +88,7 @@ public class Demo_LibraryMenu extends Library {
                     
                 case 5:
                     System.out.println("Returning a library item...");
-                    // Add logic to return a library item
+                    returnLibraryItem(scanner);
                     break;
 
                 case 6:
@@ -598,14 +598,8 @@ public class Demo_LibraryMenu extends Library {
         Patron patron = selectPatron(scanner, "borrow");
         if (patron == null) return;
 
-        // Check availability and process borrowing
-        if (itemToBorrow.getNumberOfCopies() > 0 ) {
-            itemToBorrow.setNumberOfCopies(itemToBorrow.getNumberOfCopies() - 1);
-            patron.addBorrowedItem(itemToBorrow);
-            System.out.println("Item borrowed successfully by " + patron.getName());
-        } else {
-            System.out.println("All copies of this item are currently checked out.");
-        }
+        // Borrow the item using the Status class
+        itemToBorrow.getStatus().borrowItem(patron, itemToBorrow);
     }
 
     // Helper method to select a library item
@@ -640,6 +634,28 @@ public class Demo_LibraryMenu extends Library {
             System.out.println("Invalid choice. Please select a valid patron number.");
             return null;
         }
+    }
+
+    // Method to return a library item
+    private static void returnLibraryItem(Scanner scanner) {
+        if (libraryItems.isEmpty()) {
+            System.out.println("No library items available for returning.");
+            return;
+        }
+
+        // Select a library item to return
+        LibraryItem itemToReturn = selectLibraryItem(scanner, "return");
+        if (itemToReturn == null) return;
+
+        // Check if the item is currently borrowed
+        if (itemToReturn.getStatus().getCurrentHolder() == null) {
+            System.out.println("This item is not currently checked out.");
+            return;
+        }
+
+        // Return the item using its status method
+        itemToReturn.getStatus().returnItem(itemToReturn);
+        System.out.println("Item returned successfully.");
     }
 
 }
