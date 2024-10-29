@@ -153,6 +153,7 @@ public class Demo_LibraryMenu extends Library {
 
         // User must choose an existing author or create a new author
         Author author = selectOrCreateAuthor(scanner);
+        scanner.nextLine();
 
         System.out.print("Enter ISBN: ");
         String isbn = scanner.nextLine();
