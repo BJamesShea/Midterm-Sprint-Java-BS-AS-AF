@@ -380,10 +380,14 @@ public class Demo_LibraryMenu extends Library {
         System.out.print("Enter author's name: ");
         String name = scanner.nextLine(); // Read author's name
 
-        // To avoid issues with lingering newlines
-        System.out.print("Enter author's date of birth (YYYY-MM-DD): ");
-        String dobInput = scanner.nextLine(); // Read date of birth
-        LocalDate dob = LocalDate.parse(dobInput); // Parse date of birth
+        LocalDate dob = null;
+        while (dob == null) {
+            System.out.print("Enter the author's date of birth (YYYY-MM-DD): ");
+            String dobInput = scanner.nextLine();
+            try {
+                dob = LocalDate.parse(dobInput, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            }
+        }
 
         // Create the author
         Author author = new Author(name);
