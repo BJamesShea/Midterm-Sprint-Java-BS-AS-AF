@@ -33,6 +33,9 @@ public class Demo_LibraryMenu extends Library {
         // Create scanner for Library Menu input
         Scanner scanner = new Scanner(System.in);
 
+        // Load initial data
+        loadData();
+
         // Initialize choice object
         int choice;
 
@@ -656,6 +659,90 @@ public class Demo_LibraryMenu extends Library {
         // Return the item using its status method
         itemToReturn.getStatus().returnItem(itemToReturn);
         System.out.println("Item returned successfully.");
+    }
+
+    // Method to load data every time code is run
+    private static void loadData() {
+    
+        // Authors data
+        Author a1 = new Author("Jane Austen");
+        a1.setDob(LocalDate.of(1775,12,16));
+        Author a2 = new Author("George Orwell");
+        a2.setDob(LocalDate.of(1903,6,25));
+        Author a3 = new Author("J.R.R. Tolkien");
+        a3.setDob(LocalDate.of(1892,1,3));
+        Author a4 = new Author("Mark Twain");
+        a4.setDob(LocalDate.of(1835,11,30));
+        Author a5 = new Author("Agatha Christie");
+        a5.setDob(LocalDate.of(1890,9,15));
+
+        authors.add(a1);
+        authors.add(a2);
+        authors.add(a3);
+        authors.add(a4);
+        authors.add(a5);
+
+        // Book data
+        Book b1 = new Book("B001","Pride and Prejudice",a1,"1012354","Vintage",5,Book.Format.PRINTED);
+        Book b2 = new Book("B002","1984",a2,"1111111","Penguin",3,Book.Format.ELECTRONIC);
+        Book b3 = new Book("B003", "The Hobbit", a3, "3333333333", "Allen & Unwin", 8, Book.Format.PRINTED);
+        Book b4 = new Book("B004", "The Adventures of Huckleberry Finn", a4, "4444444444", "Harper & Brothers", 4, Book.Format.AUDIO);
+        Book b5 = new Book("B005", "Murder on the Orient Express", a5, "5555555555", "Collins Crime Club", 6, Book.Format.PRINTED);
+        Book b6 = new Book("B006", "Emma", a1, "1528754", "Penguin Classics", 3, Book.Format.ELECTRONIC);
+        Book b7 = new Book("B007", "Animal Farm", a2, "7777777777", "Secker & Warburg", 10, Book.Format.PRINTED);
+
+        libraryItems.add(b1);
+        libraryItems.add(b2);
+        libraryItems.add(b3);
+        libraryItems.add(b4);
+        libraryItems.add(b5);
+        libraryItems.add(b6);
+        libraryItems.add(b7);
+
+        a1.addWrittenItem(b1);
+        a1.addWrittenItem(b6);
+        a2.addWrittenItem(b2);
+        a2.addWrittenItem(b7);
+        a3.addWrittenItem(b3);
+        a4.addWrittenItem(b4);
+        a5.addWrittenItem(b5);
+
+        // Periodical data
+        Periodical p1 = new Periodical("P001", "National Geographic", a2, "8888888888", "NatGeo", 7, Periodical.Type.PRINTED);
+        Periodical p2 = new Periodical("P002", "The New Yorker", a5, "9999999999", "Condé Nast", 5, Periodical.Type.PRINTED);
+        Periodical p3 = new Periodical("P003", "Scientific American", a4, "1010101010", "Springer Nature", 4, Periodical.Type.ELECTRONIC);
+        Periodical p4 = new Periodical("P004", "TIME Magazine", a3, "1112131415", "Time USA, LLC", 6, Periodical.Type.PRINTED);
+        Periodical p5 = new Periodical("P005", "Nature", a1, "1213141516", "Nature Publishing Group", 3, Periodical.Type.ELECTRONIC);
+
+        libraryItems.add(p1);
+        libraryItems.add(p2);
+        libraryItems.add(p3);
+        libraryItems.add(p4);
+        libraryItems.add(p5);
+
+        a2.addWrittenItem(p1);
+        a5.addWrittenItem(p2);
+        a4.addWrittenItem(p3);
+        a3.addWrittenItem(p4);
+        a1.addWrittenItem(p5);
+
+        // Patron data (Students and Employees)
+        Student s1 = new Student("Angela Flynn-Smith", "123 Maple St", "555-1234", 1001, LocalDate.of(2021, 9, 1));
+        Student s2 = new Student("Adam Stevenson", "456 Elm St", "555-5678", 1002, LocalDate.of(2020, 9, 1));
+        Student s3 = new Student("Brandon Shea", "789 Pine St", "555-8765", 1003, LocalDate.of(2022, 1, 15));
+
+        Employee e1 = new Employee("Stevie Nicks", "321 Oak St", "555-4321", 2001, "Science Department");
+        Employee e2 = new Employee("Lady Gaga", "654 Cedar St", "555-6543", 2002, "Literature Department");
+        Employee e3 = new Employee("Taylor Swift", "987 Willow St", "555-6789", 2003, "History Department");
+
+        patrons.add(s1);
+        patrons.add(s2);
+        patrons.add(s3);
+        patrons.add(e1);
+        patrons.add(e2);
+        patrons.add(e3);
+
+        System.out.println("Sample data loaded successfully.");
     }
 
 }
