@@ -51,7 +51,7 @@ public class Demo_LibraryMenu extends Library {
             System.out.println();
             System.out.println("Welcome to the Library Management System");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("Todays Date: " + currentDate);
+            System.out.println("Today's Date: " + currentDate);
             System.out.println("----------------------------------------");
             System.out.println("Please Review The Following Options:");
             System.out.println();
