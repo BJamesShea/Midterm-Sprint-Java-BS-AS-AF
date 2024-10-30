@@ -827,7 +827,7 @@ public class Demo_LibraryMenu extends Library {
 
         // Return the item using its status method
         itemToReturn.getStatus().returnItem(itemToReturn);
-        System.out.println("Item returned successfully.");
+
     }
 
     // Method to load data every time code is run
