@@ -84,6 +84,8 @@ The project is organized into the following main directories:
 
 **src/LibraryManagement/patrons:** Contains the Patron class and it's subclasses, Student and Employee.
 
+**docs:** Includes all Javadocs. use index.html as main entry point.
+
 
 
 ### Class Descriptions
