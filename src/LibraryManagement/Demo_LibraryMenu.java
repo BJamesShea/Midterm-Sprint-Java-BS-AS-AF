@@ -423,8 +423,7 @@ public class Demo_LibraryMenu extends Library {
 
             System.out.println("Library item details updated successfully.");
     }
-
-
+    
     // Method to delete a library item
     private static void deleteLibraryItem(Scanner scanner) {
         if (libraryItems.isEmpty()) {
@@ -432,22 +431,40 @@ public class Demo_LibraryMenu extends Library {
             return;
         }
 
-        System.out.println("Select a library items to delete: ");
+        System.out.println("Select a library item to delete: ");
         for (int i = 0; i < libraryItems.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, libraryItems.get(i).getTitle());
         }
-        System.out.print("Enter the number of the library item to delete: ");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
 
-        if (choice > 0 && choice <= libraryItems.size()) {
-            // Remove the author from the list
-            LibraryItem removedLibraryItem = libraryItems.remove(choice - 1);
-            System.out.println("Library Item '" + removedLibraryItem.getTitle() + "' has been deleted successfully.");
-        } else {
-            System.out.println("Invalid choice. Please select a valid library item number.");
+        int choice = -1;
+
+        while (true) {
+            System.out.print("Enter the number of the library item to delete: ");
+            String input = scanner.nextLine().trim();
+
+            if (input.isEmpty()) {
+                System.out.println("Input cannot be empty. Please enter a valid number.");
+                continue;
+            }
+
+            try {
+                choice = Integer.parseInt(input);
+
+                if (choice > 0 && choice <= libraryItems.size()) {
+                    break;
+                    
+                } else {
+                    System.out.println("Invalid choice. Please select a valid library item number.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a numeric value.");
+            }
         }
+
+        LibraryItem removedLibraryItem = libraryItems.remove(choice - 1);
+        System.out.println("Library Item '" + removedLibraryItem.getTitle() + "' has been deleted successfully.");
     }
+
 
     // Method to add an author
     private static void addAuthor(Scanner scanner) {
