@@ -758,15 +758,25 @@ public class Demo_LibraryMenu extends Library {
         System.out.println("Select a library item to " + action + ":");
         for (int i = 0; i < libraryItems.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, libraryItems.get(i).getTitle());
-        } 
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        }
+        int choice = -1;
 
-        if (choice > 0 && choice <= libraryItems.size()) {
-            return libraryItems.get(choice - 1);
-        } else {
-            System.out.println("Invalid choice. Please select a valid item number.");
-            return null;
+        while (true) {
+            System.out.println("Enter the item number: ");
+
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+
+                if (choice > 0 && choice <= libraryItems.size()) {
+                    return libraryItems.get(choice - 1);
+                } else {
+                    System.out.println("Invalid choice. Please select a valid item number.");
+                }
+            } else {
+                System.out.println("Invalid choice. Please enter a number.");
+                scanner.next();
+            }
         }
     }
 
