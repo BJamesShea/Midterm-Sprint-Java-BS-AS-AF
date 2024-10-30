@@ -74,7 +74,6 @@ public class Demo_LibraryMenu extends Library {
                 System.out.print("Enter your choice (1-12): ");
                 try {
                     choice = scanner.nextInt();
-                    scanner.nextInt();
 
                     if (choice >= 1 && choice <= 12) {
                         validChoice = true;
