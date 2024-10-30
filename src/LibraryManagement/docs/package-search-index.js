@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"LibraryManagement"},{"l":"LibraryManagement.authors"},{"l":"LibraryManagement.items"},{"l":"LibraryManagement.patrons"},{"l":"LibraryManagement.util"}];updateSearchResults();
