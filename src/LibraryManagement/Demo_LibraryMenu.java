@@ -164,13 +164,24 @@ public class Demo_LibraryMenu extends Library {
 
     // Method to add a library item
     private static void addLibraryItem(Scanner scanner) {
-        System.out.println("Enter the type of library item (1 for Book, 2 for Periodical): ");
-        int itemTypeChoice = scanner.nextInt();
-        scanner.nextLine(); // Clear the buffer
+        System.out.println("Choose the type of library item: ");
+        System.out.println("1. Book");
+        System.out.println("2. Periodical");
+        int itemTypeChoice = getValidatedChoice(scanner, 1, 2, "Enter your choice (1 or 2): ");
 
         // Input fields for both Book and Periodical items
-        System.out.print("Enter ID: ");
-        String id = scanner.nextLine();
+        String id;
+        while (true) {
+            System.out.print("Enter ID: ");
+            id = scanner.nextLine();
+            if (id.trim().isEmpty()) {
+                System.out.println("ID cannot be empty. Please enter a valid ID.");
+            } else if (isDuplicateID(id)) {
+                System.out.println("ID already exists. Please enter a unique ID.");
+            } else {
+                break;
+            }
+        }
         System.out.print("Enter Title: ");
         String title = scanner.nextLine();
 
@@ -179,12 +190,36 @@ public class Demo_LibraryMenu extends Library {
         scanner.nextLine();
 
         System.out.print("Enter ISBN: ");
-        String isbn = scanner.nextLine();
+        String isbn;
+        while (true) {
+            isbn = scanner.nextLine();
+            if (!isbn.matches("\\d+")) {
+                System.out.println("Invalid ISBN. Please enter a numeric ISBN.");
+            } else if (isDuplicateISBN(isbn)) {
+                System.out.println("ISBN already exists. Please enter a unique ISBN.");
+            } else {
+                break;
+            }
+        }
+
         System.out.print("Enter Publisher: ");
         String publisher = scanner.nextLine();
-        System.out.print("Enter Number of Copies: ");
-        int numberOfCopies = scanner.nextInt();
-        scanner.nextLine(); 
+
+        int numberOfCopies;
+        while (true) {
+         System.out.print("Enter Number of Copies: ");
+         try {
+             numberOfCopies = scanner.nextInt();
+             if (numberOfCopies <= 0) {
+                 System.out.println("Number of copies must be a positive whole number. Please enter a valid number.");
+             } else {
+                 break;
+             }
+         } catch (InputMismatchException e) {
+             System.out.println("Invalid input. Please enter a whole number.");
+             scanner.nextLine();
+         }
+        }
 
         LibraryItem libraryItem;
 
@@ -254,6 +289,16 @@ public class Demo_LibraryMenu extends Library {
         author.addWrittenItem(libraryItem);
 
         System.out.println("Library item added successfully.");
+    }
+
+    // Helper method to check for duplicate ID
+    private static boolean isDuplicateID(String id) {
+        return libraryItems.stream().anyMatch(item -> item.getId().equalsIgnoreCase(id));
+    }
+
+    // Helper method to check for duplicate ISBN
+    private static boolean isDuplicateISBN(String isbn) {
+        return libraryItems.stream().anyMatch(item -> item.getIsbn().equalsIgnoreCase(isbn));
     }
 
     // Method to edit an existing library item
@@ -385,7 +430,9 @@ public class Demo_LibraryMenu extends Library {
             System.out.print("Enter the author's date of birth (YYYY-MM-DD): ");
             String dobInput = scanner.nextLine();
             try {
-                dob = LocalDate.parse(dobInput, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                dob = LocalDate.parse(dobInput, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            } catch (Exception e) {
+                System.out.println("Invalid date format. Please use YYYY-MM-DD");
             }
         }
 
@@ -483,9 +530,10 @@ public class Demo_LibraryMenu extends Library {
 
     // Method to add a patron
     private static void addPatron(Scanner scanner) {
-        System.out.println("Choose Patron Type (1 for Student, 2 for Employee): ");
-        int patronChoice = scanner.nextInt();
-        scanner.nextLine();
+        System.out.println("Choose a Patron Type: ");
+        System.out.println("1. Student");
+        System.out.println("2. Employee");
+        int patronChoice = getValidatedChoice(scanner, 1, 2, "Enter 1 or 2: ");
 
         // Input fields for both patrons
         System.out.print("Enter Name: ");
@@ -668,6 +716,27 @@ public class Demo_LibraryMenu extends Library {
             System.out.println("Invalid choice. Please select a valid patron number.");
             return null;
         }
+    }
+
+    // Helper method to validate integer choices
+    private static int getValidatedChoice(Scanner scanner, int min, int max, String prompt) {
+        int choice = -1;
+        while (true) {
+            System.out.print(prompt);
+            try {
+                choice = scanner.nextInt();
+                if (choice >= min && choice <= max) {
+                    break;
+                } else {
+                    System.out.println("Please enter a number between " + min + " and " + max + ".");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a numeric value");
+            } finally {
+                scanner.nextLine();
+            }
+        }
+        return choice;
     }
 
     // Method to return a library item
