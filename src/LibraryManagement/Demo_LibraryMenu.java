@@ -10,6 +10,7 @@ import LibraryManagement.patrons.Student;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -74,7 +75,7 @@ public class Demo_LibraryMenu extends Library {
                 System.out.print("Enter your choice (1-12): ");
                 try {
                     choice = scanner.nextInt();
-                    scanner.nextInt();
+//                    scanner.nextInt();
 
                     if (choice >= 1 && choice <= 12) {
                         validChoice = true;
@@ -536,8 +537,14 @@ public class Demo_LibraryMenu extends Library {
         int patronChoice = getValidatedChoice(scanner, 1, 2, "Enter 1 or 2: ");
 
         // Input fields for both patrons
-        System.out.print("Enter Name: ");
-        String name = scanner.nextLine();
+        String name = "";
+        while (name.isEmpty()) {
+            System.out.print("Enter Name: ");
+            name = scanner.nextLine().trim();
+            if (name.isEmpty()) {
+                System.out.println("Name cannot be empty. Please enter a valid name.");
+            }
+        }
         System.out.print("Enter Address: ");
         String address = scanner.nextLine();
         System.out.print("Enter Phone Number: ");
@@ -546,21 +553,54 @@ public class Demo_LibraryMenu extends Library {
         // Input fields for chosen patron type
         if (patronChoice == 1) {
             // Add student
-            System.out.print("Enter Student ID: ");
-            int id = scanner.nextInt();
-            scanner.nextLine();
-            System.out.print("Enter Enrollment Date (YYYY-MM-DD): ");
-            String enrollmentDateInput = scanner.nextLine();
-            LocalDate enrollmentDate = LocalDate.parse(enrollmentDateInput);
+            int id = -1;
+            while (id < 0) {
+                System.out.print("Enter Student ID: ");
+                String idInput = scanner.nextLine();
+                if (!idInput.isEmpty()) {
+                    try {
+                        id = Integer.parseInt(idInput);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid Student ID. Please enter a valid number.");
+                    }
+                } else {
+                    System.out.println("ID cannot be empty. Please enter a valid ID.");
+                }
+            }
+            LocalDate enrollmentDate = null;
+            while (enrollmentDate == null) {
+                System.out.print("Enter Enrollment Date (YYYY-MM-DD): ");
+                String enrollmentDateInput = scanner.nextLine();
+                if (!enrollmentDateInput.isEmpty()) {
+                    try {
+                        enrollmentDate = LocalDate.parse(enrollmentDateInput);
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid date format. Please use YYYY-MM-DD.");
+                    }
+                } else {
+                    System.out.println("Enrollment date cannot be empty. Please enter a valid date.");
+                }
+            }
             // Create student object
             Student student = new Student(name, address, phoneNum, id, enrollmentDate);
             patrons.add(student); // add new student to list of patrons
             System.out.println("Student added successfully.");
         } else if (patronChoice == 2) {
             // Add employee
-            System.out.print("Enter Employee ID: ");
-            int id = scanner.nextInt();
-            scanner.nextLine();
+            int id = -1;
+            while (id < 0) {
+                System.out.print("Enter Employee ID: ");
+                String idInput = scanner.nextLine();
+                if (!idInput.isEmpty()) {
+                    try {
+                        id = Integer.parseInt(idInput);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid Employee ID. Please enter a valid number.");
+                    }
+                } else {
+                    System.out.println("ID cannot be empty. Please enter a valid ID.");
+                }
+            }
             System.out.print("Enter Department: ");
             String department = scanner.nextLine();
             // Create employee object
