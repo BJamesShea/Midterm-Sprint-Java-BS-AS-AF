@@ -76,7 +76,6 @@ public class Demo_LibraryMenu extends Library {
                 System.out.print("Enter your choice (1-12): ");
                 try {
                     choice = scanner.nextInt();
-                    scanner.nextInt();
 
                     if (choice >= 1 && choice <= 12) {
                         validChoice = true;
@@ -321,12 +320,27 @@ public class Demo_LibraryMenu extends Library {
         for (int i = 0; i < libraryItems.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, libraryItems.get(i).getTitle());
         }
-        System.out.print("Enter the number of the library item to edit: ");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
 
-        if (choice > 0 && choice <= libraryItems.size()) {
-            LibraryItem itemToEdit = libraryItems.get(choice - 1);
+        int choice = -1;
+        boolean validChoice = false;
+
+        while (!validChoice) {
+            System.out.print("Enter the number of the library item to edit: ");
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+                if (choice > 0 && choice <= libraryItems.size()) {
+                    validChoice = true;
+                } else {
+                    System.out.println("Invalid choice. Please select a valid library item number.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a numeric value.");
+                scanner.nextLine();
+            }
+        }
+
+        LibraryItem itemToEdit = libraryItems.get(choice - 1);
 
             System.out.print("Enter new title (or press Enter to keep current title: " + itemToEdit.getTitle() + "): ");
             String newTitle = scanner.nextLine();
@@ -346,17 +360,23 @@ public class Demo_LibraryMenu extends Library {
                 itemToEdit.setPublisher(newPublisher);
             }
 
-            System.out.print("Enter new number of copies (or press Enter to keep current number: " + itemToEdit.getNumberOfCopies() + "): ");
-            String newCopiesInput = scanner.nextLine();
-            if (!newCopiesInput.trim().isEmpty()) {
+            String newCopiesInput;
+            while (true) {
+                System.out.print("Enter new number of copies (or press Enter to keep current number: " + itemToEdit.getNumberOfCopies() + "): ");
+                newCopiesInput = scanner.nextLine().trim();
+                if (newCopiesInput.isEmpty()) {
+                    System.out.println("Number of copies cannot be blank. Please enter a valid number.");
+                    continue;
+                }
                 try {
                     int newCopies = Integer.parseInt(newCopiesInput);
                     itemToEdit.setNumberOfCopies(newCopies);
+                    break;
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a valid numeric value.");
+                    System.out.println("Invalid input. Please enter a valid numeric number.");
                 }
             }
-
+            
             // If the item is a Book, handle format updates
             if (itemToEdit instanceof Book) {
                 Book bookToEdit = (Book) itemToEdit;
@@ -402,9 +422,6 @@ public class Demo_LibraryMenu extends Library {
             }
 
             System.out.println("Library item details updated successfully.");
-        } else {
-            System.out.println("Invalid choice. Please select a valid library item number.");
-        }
     }
 
 
