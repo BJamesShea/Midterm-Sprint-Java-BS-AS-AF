@@ -440,24 +440,19 @@ public class Demo_LibraryMenu extends Library {
 
         while (true) {
             System.out.print("Enter the number of the library item to delete: ");
-            String input = scanner.nextLine().trim();
-
-            if (input.isEmpty()) {
-                System.out.println("Input cannot be empty. Please enter a valid number.");
-                continue;
-            }
-
-            try {
-                choice = Integer.parseInt(input);
+        
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine(); 
 
                 if (choice > 0 && choice <= libraryItems.size()) {
                     break;
-                    
                 } else {
                     System.out.println("Invalid choice. Please select a valid library item number.");
                 }
-            } catch (NumberFormatException e) {
+            } else {
                 System.out.println("Invalid input. Please enter a numeric value.");
+                scanner.nextLine(); 
             }
         }
 
@@ -803,15 +798,28 @@ public class Demo_LibraryMenu extends Library {
         for (int i = 0; i < patrons.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, patrons.get(i).getName());
         }
-        int choice = scanner.nextInt();
-        scanner.nextLine();
 
-        if (choice > 0 && choice <= patrons.size()) {
-            return patrons.get(choice - 1);
-        } else {
-            System.out.println("Invalid choice. Please select a valid patron number.");
-            return null;
+        int choice = -1;
+        boolean validChoice = false;
+
+        while (!validChoice) {
+            System.out.print("Enter the number of the patron to " + action + ": ");
+
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
+
+                if (choice > 0 && choice <= patrons.size()) {
+                    validChoice = true;
+                } else {
+                    System.out.println("Invalid choice. Please select a valid patron number.");
+                }
+            } else {
+                System.out.println("Invalid choice. Please select a numeric value.");
+                scanner.nextLine();
+            }
         }
+        return patrons.get (choice - 1);
     }
 
     // Helper method to validate integer choices
@@ -832,6 +840,7 @@ public class Demo_LibraryMenu extends Library {
                 scanner.nextLine();
             }
         }
+        
         return choice;
     }
 
