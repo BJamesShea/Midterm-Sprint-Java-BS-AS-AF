@@ -47,6 +47,7 @@ public class Demo_LibraryMenu extends Library {
         // Library Menu
         do {
             System.out.println();
+            System.out.println();
             System.out.println("Welcome to the Library Management System");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("Todays Date: " + currentDate);
@@ -74,7 +75,6 @@ public class Demo_LibraryMenu extends Library {
                 System.out.print("Enter your choice (1-12): ");
                 try {
                     choice = scanner.nextInt();
-                    scanner.nextInt();
 
                     if (choice >= 1 && choice <= 12) {
                         validChoice = true;
@@ -174,12 +174,20 @@ public class Demo_LibraryMenu extends Library {
         while (true) {
             System.out.print("Enter ID: ");
             id = scanner.nextLine();
+
             if (id.trim().isEmpty()) {
-                System.out.println("ID cannot be empty. Please enter a valid ID.");
-            } else if (isDuplicateID(id)) {
-                System.out.println("ID already exists. Please enter a unique ID.");
+                System.out.println("ID cannot be empty. Please enter a valid numeric ID.");
             } else {
-                break;
+                try {
+                    Integer.parseInt(id);
+                    if (isDuplicateID(id)) {
+                        System.out.println("ID already exists. Please enter a unique ID.");
+                    } else {
+                        break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a numeric ID.");
+                }
             }
         }
         System.out.print("Enter Title: ");
@@ -187,7 +195,6 @@ public class Demo_LibraryMenu extends Library {
 
         // User must choose an existing author or create a new author
         Author author = selectOrCreateAuthor(scanner);
-        scanner.nextLine();
 
         System.out.print("Enter ISBN: ");
         String isbn;
@@ -340,8 +347,12 @@ public class Demo_LibraryMenu extends Library {
             System.out.print("Enter new number of copies (or press Enter to keep current number: " + itemToEdit.getNumberOfCopies() + "): ");
             String newCopiesInput = scanner.nextLine();
             if (!newCopiesInput.trim().isEmpty()) {
-                int newCopies = Integer.parseInt(newCopiesInput);
-                itemToEdit.setNumberOfCopies(newCopies);
+                try {
+                    int newCopies = Integer.parseInt(newCopiesInput);
+                    itemToEdit.setNumberOfCopies(newCopies);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid numeric value.");
+                }
             }
 
             // If the item is a Book, handle format updates
